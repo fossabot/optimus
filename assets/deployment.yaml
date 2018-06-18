@@ -1,0 +1,7 @@
+apiVersion: hooks.cloudflavor.io/v1alpha1
+kind: Deployment
+metadata:
+  name: deployment-prehook
+spec:
+  deploymentName: crd-deployment-prehook
+  replicas: 1
