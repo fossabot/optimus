@@ -1,7 +1,7 @@
-apiVersion: hooks.cloudflavor.io/v1alpha1
+apiVersion: jobs.cloudflavor.io/v1alpha1
 kind: Deployment
 metadata:
-  name: deployment-prehook
+  name: ci-pipeline
 spec:
-  deploymentName: crd-deployment-prehook
+  deploymentName: ci-pipeline-controller
   replicas: 1
