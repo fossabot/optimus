@@ -1,9 +1,9 @@
 FROM alpine:latest
 
-RUN mkdir /lifecycle-hooks
+RUN mkdir /ci-pipelines
 
-WORKDIR /lifecycle-hooks
+WORKDIR /ci-pipelines
 
-ADD _output/linux/amd64/lfhooks /lifecycle-hooks
+ADD _output/linux/amd64/cipip /ci-pipelines
 
-CMD ["lfhooks"]
+CMD ["cipip"]
