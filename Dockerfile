@@ -4,6 +4,6 @@ RUN mkdir /ci-pipelines
 
 WORKDIR /ci-pipelines
 
-ADD _output/linux/amd64/cipip /ci-pipelines
+ADD _output/linux/amd64/cip /ci-pipelines
 
-CMD ["cipip"]
+CMD ["cip"]

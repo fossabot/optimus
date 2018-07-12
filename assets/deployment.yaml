@@ -1,4 +1,4 @@
-apiVersion: jobs.cloudflavor.io/v1alpha1
+apiVersion: pipelines.cloudflavor.io/v1alpha1
 kind: Deployment
 metadata:
   name: ci-pipeline
