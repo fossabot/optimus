@@ -1,2 +1,3 @@
-# deployment-controller
-A custom kubernetes deployment controller
+# CI Pipelines
+
+CRDs for chaining jobs into pipelines on k8s.
