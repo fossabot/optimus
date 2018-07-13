@@ -1,9 +1,13 @@
 FROM alpine:latest
 
-RUN mkdir /ci-pipelines
+RUN mkdir -p /ci-pipelines
 
 WORKDIR /ci-pipelines
 
-ADD _output/linux/amd64/cip /ci-pipelines
+ADD _output/bin/ci-pipelines /ci-pipelines
+
+RUN chown -R 1000 /ci-pipelines
+
+USER 1000
 
 CMD ["cip"]
