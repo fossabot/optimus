@@ -1,5 +1,5 @@
 hash: 5c3e4ed4a568c75473b8421664f7758afb75fff04369d3e18f48ee802ac38b61
-updated: 2018-07-12T09:58:36.996101+02:00
+updated: 2018-07-13T21:48:19.708474+02:00
 imports:
 - name: github.com/emirpasic/gods
   version: bba54c718c4e39e4db35f73e0c660df44a4de4cd
@@ -10,6 +10,15 @@ imports:
   - trees
   - trees/binaryheap
   - utils
+- name: github.com/gogo/protobuf
+  version: c0656edd0d9eab7c66d1eb0c568f9039345796f7
+  subpackages:
+  - proto
+  - sortkeys
+- name: github.com/golang/glog
+  version: 44145f04b68cf362d9c4df2182967c2275eaefed
+- name: github.com/google/gofuzz
+  version: 44d81051d367757e1c7c6a5a86423ece9afcf63c
 - name: github.com/inconshreveable/mousetrap
   version: 76626ae9c91c4f2a10f34cad8ce83ea42c93bb75
 - name: github.com/jbenet/go-context
@@ -63,19 +72,30 @@ imports:
   - ssh/knownhosts
   - ssh/terminal
 - name: golang.org/x/net
-  version: cffdcf672aee934982473246bc7e9a8ba446aa9b
+  version: 1c05540f6879653db88113bc4a2b70aec4bd491f
   subpackages:
   - context
+  - html
+  - html/atom
+  - http2
+  - http2/hpack
+  - idna
+  - lex/httplex
+  - websocket
 - name: golang.org/x/sys
   version: 1b2967e3c290b7c545b3db0deeda16e9be4f98a2
   subpackages:
   - unix
   - windows
 - name: golang.org/x/text
-  version: 0605a8320aceb4207a5fb3521281e17ec2075476
+  version: b19bf474d317b857955b12035d2c5acb57ce8b01
   subpackages:
+  - secure/bidirule
   - transform
+  - unicode/bidi
   - unicode/norm
+- name: gopkg.in/inf.v0
+  version: 3887ee99ecf07df5b447e9b00d9c0b2adaa9f3e4
 - name: gopkg.in/src-d/go-billy.v4
   version: 83cf655d40b15b427014d7875d10850f96edba14
   subpackages:
@@ -127,4 +147,29 @@ imports:
   - utils/merkletrie/noder
 - name: gopkg.in/warnings.v0
   version: ec4a0fea49c7b46c2aeb0b51aac55779c607e52b
+- name: k8s.io/apimachinery
+  version: 5e3c3f9281db3188d57785c1f6afe5eb504ede4f
+  subpackages:
+  - pkg/api/resource
+  - pkg/apis/meta/v1
+  - pkg/conversion
+  - pkg/conversion/queryparams
+  - pkg/fields
+  - pkg/labels
+  - pkg/runtime
+  - pkg/runtime/schema
+  - pkg/selection
+  - pkg/types
+  - pkg/util/errors
+  - pkg/util/intstr
+  - pkg/util/json
+  - pkg/util/naming
+  - pkg/util/net
+  - pkg/util/runtime
+  - pkg/util/sets
+  - pkg/util/validation
+  - pkg/util/validation/field
+  - pkg/util/wait
+  - pkg/watch
+  - third_party/forked/golang/reflect
 testImports: []
