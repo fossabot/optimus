@@ -1,5 +1,5 @@
-hash: 8c89a3a15636e166ae6fdab09df54be7bf49770503a604a7b6f9ff6477a4f660
-updated: 2018-07-14T02:51:48.367978+02:00
+hash: 62d7899a9bdd0a902fb647c86b8669f1b3a9becfe84c6ea0b82e310dc6b92b74
+updated: 2018-07-15T00:20:41.1087+02:00
 imports:
 - name: github.com/emirpasic/gods
   version: bba54c718c4e39e4db35f73e0c660df44a4de4cd
@@ -127,4 +127,6 @@ imports:
   - utils/merkletrie/noder
 - name: gopkg.in/warnings.v0
   version: ec4a0fea49c7b46c2aeb0b51aac55779c607e52b
+- name: k8s.io/code-generator
+  version: 7b3961072db196a1068e97f76c74ca6bc6b65350
 testImports: []

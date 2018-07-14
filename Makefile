@@ -32,3 +32,6 @@ tag:
 
 test:
 	go test -race -coverprofile=coverage.txt -covermode=atomic -v ./pkg/pipelines/
+
+gen:
+	vendor/k8s.io/code-generator/generate-groups.sh all github.com/PI-Victor/ci-pipelines/pkg/client  github.com/PI-Victor/ci-pipelines/pkg/apis  pipelines:v1
