@@ -1,2 +1,8 @@
 package: github.com/PI-Victor/ci-pipelines
-import: []
+import:
+- package: github.com/sirupsen/logrus
+  version: ^1.0.5
+- package: github.com/spf13/cobra
+  version: ^0.0.3
+- package: github.com/src-d/go-git
+  version: ^4.5.0
