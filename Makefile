@@ -7,7 +7,7 @@ tag=$(shell git describe --abbrev=0 --tags)
 build:
 	rm -rf _output || true
 	mkdir -p _output/bin/
-	 $(gobuild) -v -ldflags "-X main.commit=$(commit) -X main.version=$(vers)" ./cmd/cip/main.go 
+	 $(gobuild) -v -ldflags "-X main.commit=$(commit) -X main.version=$(vers)" ./cmd/cip/main.go
 
 generate:
 	echo "test"
@@ -29,3 +29,6 @@ tag:
 	docker tag $(image):$(commit) $(image):latest
 	docker tag $(image):$(commit) $(image):$(vers)
 	git tag $(vers)
+
+test:
+	go test -race -coverprofile=coverage.txt -covermode=atomic -v ./pkg/pipelines/
