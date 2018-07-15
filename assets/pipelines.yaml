@@ -9,6 +9,6 @@ spec:
   names:
     plural: pipelines
     singular: pipeline
-    kind: CIPipelines
+    kind: Pipelines
     shortNames:
-    - cpr
+    - cip

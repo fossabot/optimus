@@ -1,13 +1,13 @@
-image=quay.io/cloudflavor/ci-pipelines
+image=quay.io/cloudflavor/pipelines
 vers=v0.1.0-alpha
-gobuild=go build -o _output/bin/ci-pipelines
+gobuild=go build -o _output/bin/pipelines
 commit=$(shell git rev-parse --short HEAD)
 tag=$(shell git describe --abbrev=0 --tags)
 
 build:
 	rm -rf _output || true
 	mkdir -p _output/bin/
-	 $(gobuild) -v -ldflags "-X main.commit=$(commit) -X main.version=$(vers)" ./cmd/cip/main.go
+	 $(gobuild) -v -ldflags "-X main.commit=$(commit) -X main.version=$(vers)" ./cmd/pipelines/main.go
 
 generate:
 	echo "test"
@@ -30,8 +30,9 @@ tag:
 	docker tag $(image):$(commit) $(image):$(vers)
 	git tag $(vers)
 
+# TODO: implement coverage testing.
 test:
 	go test -race -coverprofile=coverage.txt -covermode=atomic -v ./pkg/pipelines/
 
 gen:
-	vendor/k8s.io/code-generator/generate-groups.sh all github.com/PI-Victor/ci-pipelines/pkg/client  github.com/PI-Victor/ci-pipelines/pkg/apis  pipelines:v1
+	vendor/k8s.io/code-generator/generate-groups.sh all github.com/PI-Victor/pipelines/pkg/client  github.com/PI-Victor/pipelines/pkg/apis  pipelines:v1

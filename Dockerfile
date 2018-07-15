@@ -1,13 +1,13 @@
 FROM alpine:latest
 
-RUN mkdir -p /ci-pipelines
+RUN mkdir -p /pipelines
 
-WORKDIR /ci-pipelines
+WORKDIR /pipelines
 
-ADD _output/bin/ci-pipelines /ci-pipelines
+ADD _output/bin/pipelines /pipelines
 
-RUN chown -R 1000 /ci-pipelines
+RUN chown -R 1000 /pipelines
 
 USER 1000
 
-CMD ["cip"]
+CMD ["pipelines"]

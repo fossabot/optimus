@@ -1,7 +1,7 @@
-apiVersion: pipelines.cloudflavor.io/v1alpha1
+apiVersion: pipelines.cloudflavor.io/v1
 kind: Deployment
 metadata:
-  name: ci-pipeline
+  name: pipelines
 spec:
-  deploymentName: ci-pipeline-controller
+  deploymentName: pipelines
   replicas: 1
