@@ -1,16 +1,27 @@
 package v1
 
-type CIProject struct {
-	Pipelines []Pipeline `json:"pipelines"`
+import (
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+)
+
+type PipelineList struct {
+	metav1.TypeMeta   `json:",inline"`
+	metav1.ObjectMeta `json:"metadata,omitempty"`
+
+	Pipelines []*Pipeline `json:"pipelines"`
 }
 
 type Pipeline struct {
-	ArchiveArtifacts bool       `json:"archive"`
-	VCS              VCSDetails `json:"vcs_details"`
-	Stages           []Stage    `json:"stages,omitempty"`
+	metav1.TypeMeta   `json:",inline"`
+	metav1.ObjectMeta `json:"metadata,omitempty"`
+
+	ArchiveArtifacts bool        `json:"archive"`
+	VCS              *VCSDetails `json:"vcs_details"`
+	Stages           []Stage     `json:"stages,omitempty"`
 }
 
 type Stage struct {
+	Parallel   bool
 	Command    string   `json:"command"`
 	Parameters []string `json:"parameters"`
 }
