@@ -20,8 +20,8 @@ package fake
 
 import (
 	clientset "github.com/PI-Victor/pipelines/pkg/client/clientset/versioned"
-	pipelinesv1 "github.com/pi-victor/pipelines/pkg/client/clientset/versioned/typed/pipelines/v1"
-	fakepipelinesv1 "github.com/pi-victor/pipelines/pkg/client/clientset/versioned/typed/pipelines/v1/fake"
+	pipelinesv1 "github.com/pi-victor/pipelines/pkg/client/clientset/versioned/typed/cloudflavor.io/v1"
+	fakepipelinesv1 "github.com/pi-victor/pipelines/pkg/client/clientset/versioned/typed/cloudflavor.io/v1/fake"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/watch"
 	"k8s.io/client-go/discovery"

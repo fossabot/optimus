@@ -19,7 +19,7 @@ limitations under the License.
 package fake
 
 import (
-	pipelinesv1 "github.com/pi-victor/pipelines/pkg/apis/pipelines/v1"
+	pipelinesv1 "github.com/pi-victor/pipelines/pkg/apis/cloudflavor.io/v1"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"

@@ -22,57 +22,47 @@ type Pipeline struct {
 	ArchiveArtifacts bool             `json:"archive"`
 	Project          Project          `json:"vcs_details"`
 	ContainerBuilder ContainerBuilder `json:"container_builder"`
+	Notifications    Notifications    `json:"notifications"`
 }
 
+// +genclient
+// +genclient:noStatus
+// +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 type Project struct {
-	Stages         []Stage `json:"stages"`
-	PollInterval   uint32  `json:"poll_interval"`
-	Repository     string  `json:"repository"`
-	Username       string  `json:"usernam"`
-	Authentication Secrets `json:"auth_details"`
+	metav1.TypeMeta   `json:",inline"`
+	metav1.ObjectMeta `json:"metadata,omitempty"`
+
+	Stages       []Stage `json:"stages"`
+	PollInterval uint32  `json:"poll_interval"`
+	Repository   string  `json:"repository"`
+	Username     string  `json:"username"`
 }
 
 type ContainerBuilder struct {
-	URI            string   `json:"builder_uri"`
-	Registry       Registry `json:"container_registry"`
-	Authentication Secrets  `json:"auth_details"`
+	URI      string            `json:"uri"`
+	Registry ContainerRegistry `json:"registry"`
 }
 
 type Stage struct {
-	ExitOnError string    `json:"exit_on_error"`
+	ExitOnError bool      `json:"exit_on_error"`
 	Name        string    `json:"stage_name"`
 	Parallel    bool      `json:"parallel"`
 	Commands    []Command `json:"commands"`
 }
 
-type Commands struct {
+type Command struct {
 	ExitOnError string   `json:"exit_on_error"`
-	Cmd         string   `json:"command"`
-	Parameters  []string `json:"parameters"`
+	Cmd         []string `json:"commands"`
 }
 
-type Registry struct {
-	URI            string  `json:"registry_uri"`
-	Authentication Secrets `json:"auth_details"`
-}
-
-// NOTE: if we use k8s native secrets, do we need secrets at all?
-type Secrets struct {
-	SSHKey          string `json:"ssh_key,omitempty"`
-	AccessToken     string `json:"access_token,omitempty"`
-	SecretAccessKey string `json:"secret_key,omitempty"`
-	AccessKey       string `json:"access_key,omitempty"`
-	TLSCert         string `json:"tls_cert,omitempty"`
-	TLSCACert       string `json:"tls_ca_cert,omitempty"`
-	TLSCertKey      string `json:"tls_cert_key,omitempty"`
+type ContainerRegistry struct {
+	URI string `json:"uri"`
 }
 
 type Storage struct {
-	URI            string  `json:"uri"`
-	Authentication Secrets `json:"auth_details"`
+	URI string `json:"uri"`
 }
 
-type NotificationDetails struct {
-	URI            string  `json:"notification_uri"`
-	Authentication Secrets `json:"auth_details"`
+type Notifications struct {
+	URI string `json:"uri"`
 }

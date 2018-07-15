@@ -1,5 +1,5 @@
-package pipelines
+package cloudflavorio
 
 const (
-	GroupName = "pipelines"
+	GroupName = "cloudflavor.io"
 )

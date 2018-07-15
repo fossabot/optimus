@@ -19,7 +19,7 @@ limitations under the License.
 package versioned
 
 import (
-	pipelinesv1 "github.com/pi-victor/pipelines/pkg/client/clientset/versioned/typed/pipelines/v1"
+	pipelinesv1 "github.com/pi-victor/pipelines/pkg/client/clientset/versioned/typed/cloudflavor.io/v1"
 	discovery "k8s.io/client-go/discovery"
 	rest "k8s.io/client-go/rest"
 	flowcontrol "k8s.io/client-go/util/flowcontrol"
