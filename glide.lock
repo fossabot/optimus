@@ -1,5 +1,5 @@
-hash: 8e4fca46f0c3658a5d1c88828d6f12843624def0dc4d932040c022f9a7994c81
-updated: 2018-07-15T12:07:04.274736+02:00
+hash: 2492a4362b385e14a5063b3983e16d32a4de24a036c1d9fb0211e26f0d03f2bd
+updated: 2018-07-15T12:32:08.611746+02:00
 imports:
 - name: github.com/emirpasic/gods
   version: bba54c718c4e39e4db35f73e0c660df44a4de4cd
@@ -31,10 +31,6 @@ imports:
   version: 3864e76763d94a6df2f9960b16a20a33da9f9a66
 - name: github.com/pelletier/go-buffruneio
   version: e2f66f8164ca709d4c21e815860afd2024e9b894
-- name: github.com/PI-Victor/pipelines
-  version: 71829a9428ba315180b52a39e67d85d0dfe2dc13
-  subpackages:
-  - pkg/apis/pipelines
 - name: github.com/sergi/go-diff
   version: da645544ed44df016359bd4c0e3dc60ee3a0da43
   subpackages:
@@ -175,4 +171,6 @@ imports:
   - pkg/util/wait
   - pkg/watch
   - third_party/forked/golang/reflect
+- name: k8s.io/code-generator
+  version: 7b3961072db196a1068e97f76c74ca6bc6b65350
 testImports: []

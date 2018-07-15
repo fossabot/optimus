@@ -1,4 +1,4 @@
-package: github.com/PI-Victor/ci-pipelines
+package: github.com/PI-Victor/pipelines
 import:
 - package: github.com/PI-Victor/pipelines
   subpackages:
@@ -14,3 +14,4 @@ import:
   - pkg/apis/meta/v1
   - pkg/runtime
   - pkg/runtime/schema
+- package: k8s.io/code-generator
