@@ -4,14 +4,16 @@
 [![codecov](https://codecov.io/gh/PI-Victor/pipelines/branch/master/graph/badge.svg)](https://codecov.io/gh/PI-Victor/pipelines)  
 
 This is a CRD controller for orchestrating k8s native resources into ci-cd
-pipelines. The intended purpose is to have a VCS watcher/webhook that will run
-the pipeline on a VCS event, run the defined stages of the CRD, build the
-container image (either on remote docker client, secured with TLS or with a
-privileged pod inside of kubernetes itself), push the container to the user
-defined registry, notify the user by calling his CRD defined web-hook of
-thestage/stage command exit status. If the storage option is defined, the job
-artifacts are pushed to a defined object storage (the first option implemented
-will be Minio object storage).
+pipelines.  
+
+The intended purpose is to have a VCS watcher/web-hook that will run the
+pipeline on a VCS event, run each defined stage, build the container image
+(securely exposed docker instance on a remote host), push the container to the
+user defined registry, notify the user by calling his CRD defined web-hook of
+the stage/stage command exit status.  
+
+If the object storage option is defined, the job artifacts are tar archived and
+pushed under the project bucket as `jobname-date.tar.gz`.
 
  *And maybe some other magic too.*  
 
@@ -41,7 +43,11 @@ spec:
     Registry:
       URI: "https://uri-to-my-container-image-registry"
       ...
-  VCS:
+  # This is the stage section, where we define each stage of the pipeline.
+  ArtifactsStorage:
+    URI: "https://My-Minio-Example-Server"
+    BucketName: "my-bucket"
+  Project:
     # NOTE: This will probably be dropped in favor of a VCS web-hook.  
     # Or it will complement the web-hook scenario, for cases in enterprise
     # environments where we can't have web-hooks for various reasons.
@@ -50,9 +56,6 @@ spec:
     # Yet to be defined authentication options for docker daemon, VCS server
     # Object storage. Most definitely will use mounted secrets.
     ...
-    # This is the stage section, where we define each stage of the pipeline.
-    ArtifactsStorage:
-      URI: "https://My-Minio-Example-Server"
       ...
     Stage:
       # The name of the stage, this will be used to report failure or other

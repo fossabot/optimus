@@ -5,7 +5,7 @@ import (
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	pipelines "github.com/PI-Victor/pipelines/pkg/apis/cloudflavor.io/v1"
+	pipelines "github.com/PI-Victor/pipelines/pkg/apis/pipelines/v1"
 )
 
 var SchemeGroupVersion = schema.GroupVersion{
