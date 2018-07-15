@@ -1,0 +1,9 @@
+vendor
+cmd
+assets
+.git
+.gitignore
+glide*
+LICENSE
+Makefile
+README
