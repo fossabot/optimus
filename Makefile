@@ -35,4 +35,4 @@ test:
 	go test -race -coverprofile=coverage.txt -covermode=atomic -v ./pkg/
 
 gen:
-	vendor/k8s.io/code-generator/generate-groups.sh all github.com/PI-Victor/pipelines/pkg/client  github.com/PI-Victor/pipelines/pkg/apis  pipelines:v1
+	vendor/k8s.io/code-generator/generate-groups.sh all github.com/PI-Victor/pipelines/pkg/client  github.com/PI-Victor/pipelines/pkg/apis  cloudflavor.io:v1

@@ -13,15 +13,15 @@ user defined registry, notify the user by calling his CRD defined web-hook of
 the stage/stage command exit status.  
 
 If the object storage option is defined, the job artifacts are tar archived and
-pushed under the project bucket as `jobname-date.tar.gz`.
+pushed under the project bucket as `jobname-longdateformat.tar.gz`.
 
  *And maybe some other magic too.*  
 
 
 A rough estimate of the CRDs intended use.  
 
-**NOTE: this changes constantly and might be invalid syntax! It only includes
-the CI part and not the CD part**
+**NOTE: this changes constantly and may contain invalid syntax!
+It only includes the CI part and not the CD part**
 
 ```yaml
 apiVersion: pipelines.cloudflavor.io/v1
@@ -78,3 +78,8 @@ spec:
           - run
           - test
 ```
+
+
+Additional planned features:  
+* pod template with resource quota for stages
+* expose stage metrics through prometheus
