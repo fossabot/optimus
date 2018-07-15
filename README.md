@@ -66,7 +66,7 @@ spec:
         Parallel: false
         # Either exit when a command fails or continue.
         # NOTE: Is this a good idea? it affects stages up the stack, where
-        # a stage will report as successful when, in fact, there where
+        # a stage will report as successful when, in fact, there were
         # errors?
         # Should this be at the stage level and not at the command level
         ExitOnError: true
