@@ -1,7 +1,9 @@
 # CI Pipelines
 [![Docker Repository on Quay](https://quay.io/repository/cloudflavor/pipelines/status "Docker Repository on Quay")](https://quay.io/repository/cloudflavor/pipelines)
 [![Build Status](https://travis-ci.org/PI-Victor/pipelines.svg?branch=master)](https://travis-ci.org/PI-Victor/pipelines)
-[![codecov](https://codecov.io/gh/PI-Victor/pipelines/branch/master/graph/badge.svg)](https://codecov.io/gh/PI-Victor/pipelines)  
+[![codecov](https://codecov.io/gh/PI-Victor/pipelines/branch/master/graph/badge.svg)](https://codecov.io/gh/PI-Victor/pipelines)
+[![Go Report Card](https://goreportcard.com/badge/github.com/pi-victor/pipelines)](https://goreportcard.com/report/github.com/pi-victor/pipelines)  
+
 
 This is a CRD controller for orchestrating k8s native resources into ci-cd
 pipelines.  

@@ -4,7 +4,7 @@ gobuild=go build -o _output/bin/pipelines
 commit=$(shell git rev-parse --short HEAD)
 tag=$(shell git describe --abbrev=0 --tags)
 
-build:
+build: verify
 	rm -rf _output || true
 	mkdir -p _output/bin/
 	 $(gobuild) -v -ldflags "-X main.commit=$(commit) -X main.version=$(vers)" ./cmd/pipelines/main.go
@@ -35,4 +35,7 @@ test:
 	go test -race -coverprofile=coverage.txt -covermode=atomic -v ./pkg/cli
 
 gen:
-	vendor/k8s.io/code-generator/generate-groups.sh all github.com/PI-Victor/pipelines/pkg/client  github.com/PI-Victor/pipelines/pkg/apis  cloudflavor.io:v1
+	hack/update-codegen.sh
+
+verify:
+	hack/verify-codegen.sh
