@@ -81,6 +81,9 @@ spec:
           - test
 ```
 
+The following architecture diagram outlines the intended job control flow.
+![k8s pipeliens arch](assets/piplines-workflow.png)
+
 
 Additional planned features:  
 * pod template with resource quota for stages
