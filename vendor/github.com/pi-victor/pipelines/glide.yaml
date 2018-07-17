@@ -1,0 +1,16 @@
+package: github.com/PI-Victor/pipelines
+import:
+- package: github.com/golang/glog
+- package: github.com/src-d/go-git
+- package: k8s.io/api
+  subpackages:
+  - core/v1
+- package: k8s.io/apimachinery
+  subpackages:
+  - pkg/apis/meta/v1
+  - pkg/runtime
+  - pkg/runtime/schema
+- package: k8s.io/client-go
+  subpackages:
+  - tools/clientcmd
+- package: k8s.io/code-generator
