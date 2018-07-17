@@ -49,7 +49,7 @@ func init() {
 func addKnownTypes(scheme *runtime.Scheme) error {
 	scheme.AddKnownTypes(
 		SchemeGroupVersion,
-		&Pipeline,
+		&Pipeline{},
 		&PipelineList{},
 	)
 	metav1.AddToGroupVersion(scheme, SchemeGroupVersion)
