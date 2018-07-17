@@ -1,0 +1,17 @@
+package: github.com/PI-Victor/pipelines
+import:
+- package: github.com/PI-Victor/pipelines
+  subpackages:
+  - pkg/apis/pipelines
+- package: github.com/sirupsen/logrus
+  version: ^1.0.5
+- package: github.com/spf13/cobra
+  version: ^0.0.3
+- package: github.com/src-d/go-git
+  version: ^4.5.0
+- package: k8s.io/apimachinery
+  subpackages:
+  - pkg/apis/meta/v1
+  - pkg/runtime
+  - pkg/runtime/schema
+- package: k8s.io/code-generator

@@ -1,0 +1,7 @@
+apiVersion: pipelines.cloudflavor.io/v1
+kind: Deployment
+metadata:
+  name: pipelines
+spec:
+  deploymentName: pipelines
+  replicas: 1
