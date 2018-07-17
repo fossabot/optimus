@@ -14,6 +14,7 @@ limitations under the License.
 package v1
 
 import (
+	"k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
@@ -32,40 +33,42 @@ type Pipeline struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 
-	ArchiveArtifacts bool             `json:"archive"`
-	Project          Project          `json:"vcs_details"`
-	ContainerBuilder ContainerBuilder `json:"container_builder"`
-	Notifications    Notifications    `json:"notifications"`
+	Project Project `json:"vcs_details"`
 }
 
-// +genclient
-// +genclient:noStatus
-// +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 type Project struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 
-	Stages       []Stage `json:"stages"`
-	PollInterval uint32  `json:"poll_interval"`
-	Repository   string  `json:"repository"`
-	Username     string  `json:"username"`
+	ArchiveArtifacts bool             `json:"archive"`
+	ContainerBuilder ContainerBuilder `json:"container_builder"`
+	Notifications    Notifications    `json:"notifications"`
+	PollInterval     uint32           `json:"poll_interval"`
+	Repository       string           `json:"repository"`
+	Username         string           `json:"username"`
+
+	Stages []Stage `json:"stages"`
+}
+
+type Stage struct {
+	ExitOnError bool   `json:"exit_on_error"`
+	Name        string `json:"stage_name"`
+	Parallel    bool   `json:"parallel"`
+
+	Commands []Command `json:"commands"`
+}
+
+type Command struct {
+	RuntimeImage string   `json:"runtime_image"`
+	ExitOnError  string   `json:"exit_on_error"`
+	Cmd          []string `json:"commands"`
+
+	PodTemplate *v1.ResourceRequirements `json:"pod_template,omitempty"`
 }
 
 type ContainerBuilder struct {
 	URI      string            `json:"uri"`
 	Registry ContainerRegistry `json:"registry"`
-}
-
-type Stage struct {
-	ExitOnError bool      `json:"exit_on_error"`
-	Name        string    `json:"stage_name"`
-	Parallel    bool      `json:"parallel"`
-	Commands    []Command `json:"commands"`
-}
-
-type Command struct {
-	ExitOnError string   `json:"exit_on_error"`
-	Cmd         []string `json:"commands"`
 }
 
 type ContainerRegistry struct {
