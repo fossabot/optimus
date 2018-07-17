@@ -23,7 +23,7 @@ type PipelineList struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 
-	Pipelines []Pipeline `json:"pipelines"`
+	Items []Pipeline `json:"pipelines"`
 }
 
 // +genclient
