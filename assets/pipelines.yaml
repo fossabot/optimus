@@ -7,8 +7,8 @@ spec:
   version: v1
   scope: Namespaced
   names:
-    kind: Pipelines
-    listKind: PipelineList
+    kind: Pipeline
+    listKind: Pipelines
     plural: pipelines
     singular: pipeline
     shortNames:
