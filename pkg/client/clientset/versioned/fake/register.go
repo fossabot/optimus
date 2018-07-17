@@ -16,7 +16,7 @@ limitations under the License.
 package fake
 
 import (
-	pipelinesv1 "github.com/pi-victor/pipelines/pkg/apis/cloudflavor.io/v1"
+	cloudflavorv1 "github.com/pi-victor/pipelines/pkg/apis/cloudflavor.io/v1"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"
@@ -28,7 +28,7 @@ var scheme = runtime.NewScheme()
 var codecs = serializer.NewCodecFactory(scheme)
 var parameterCodec = runtime.NewParameterCodec(scheme)
 var localSchemeBuilder = runtime.SchemeBuilder{
-	pipelinesv1.AddToScheme,
+	cloudflavorv1.AddToScheme,
 }
 
 // AddToScheme adds all types of this clientset into the given scheme. This allows composition

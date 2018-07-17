@@ -16,7 +16,7 @@ limitations under the License.
 package versioned
 
 import (
-	pipelinesv1 "github.com/pi-victor/pipelines/pkg/client/clientset/versioned/typed/cloudflavor.io/v1"
+	cloudflavorv1 "github.com/pi-victor/pipelines/pkg/client/clientset/versioned/typed/cloudflavor.io/v1"
 	discovery "k8s.io/client-go/discovery"
 	rest "k8s.io/client-go/rest"
 	flowcontrol "k8s.io/client-go/util/flowcontrol"
@@ -24,27 +24,27 @@ import (
 
 type Interface interface {
 	Discovery() discovery.DiscoveryInterface
-	PipelinesV1() pipelinesv1.PipelinesV1Interface
+	CloudflavorV1() cloudflavorv1.CloudflavorV1Interface
 	// Deprecated: please explicitly pick a version if possible.
-	Pipelines() pipelinesv1.PipelinesV1Interface
+	Cloudflavor() cloudflavorv1.CloudflavorV1Interface
 }
 
 // Clientset contains the clients for groups. Each group has exactly one
 // version included in a Clientset.
 type Clientset struct {
 	*discovery.DiscoveryClient
-	pipelinesV1 *pipelinesv1.PipelinesV1Client
+	cloudflavorV1 *cloudflavorv1.CloudflavorV1Client
 }
 
-// PipelinesV1 retrieves the PipelinesV1Client
-func (c *Clientset) PipelinesV1() pipelinesv1.PipelinesV1Interface {
-	return c.pipelinesV1
+// CloudflavorV1 retrieves the CloudflavorV1Client
+func (c *Clientset) CloudflavorV1() cloudflavorv1.CloudflavorV1Interface {
+	return c.cloudflavorV1
 }
 
-// Deprecated: Pipelines retrieves the default version of PipelinesClient.
+// Deprecated: Cloudflavor retrieves the default version of CloudflavorClient.
 // Please explicitly pick a version.
-func (c *Clientset) Pipelines() pipelinesv1.PipelinesV1Interface {
-	return c.pipelinesV1
+func (c *Clientset) Cloudflavor() cloudflavorv1.CloudflavorV1Interface {
+	return c.cloudflavorV1
 }
 
 // Discovery retrieves the DiscoveryClient
@@ -63,7 +63,7 @@ func NewForConfig(c *rest.Config) (*Clientset, error) {
 	}
 	var cs Clientset
 	var err error
-	cs.pipelinesV1, err = pipelinesv1.NewForConfig(&configShallowCopy)
+	cs.cloudflavorV1, err = cloudflavorv1.NewForConfig(&configShallowCopy)
 	if err != nil {
 		return nil, err
 	}
@@ -79,7 +79,7 @@ func NewForConfig(c *rest.Config) (*Clientset, error) {
 // panics if there is an error in the config.
 func NewForConfigOrDie(c *rest.Config) *Clientset {
 	var cs Clientset
-	cs.pipelinesV1 = pipelinesv1.NewForConfigOrDie(c)
+	cs.cloudflavorV1 = cloudflavorv1.NewForConfigOrDie(c)
 
 	cs.DiscoveryClient = discovery.NewDiscoveryClientForConfigOrDie(c)
 	return &cs
@@ -88,7 +88,7 @@ func NewForConfigOrDie(c *rest.Config) *Clientset {
 // New creates a new Clientset for the given RESTClient.
 func New(c rest.Interface) *Clientset {
 	var cs Clientset
-	cs.pipelinesV1 = pipelinesv1.New(c)
+	cs.cloudflavorV1 = cloudflavorv1.New(c)
 
 	cs.DiscoveryClient = discovery.NewDiscoveryClient(c)
 	return &cs

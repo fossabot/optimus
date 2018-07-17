@@ -17,8 +17,8 @@ package fake
 
 import (
 	clientset "github.com/PI-Victor/pipelines/pkg/client/clientset/versioned"
-	pipelinesv1 "github.com/pi-victor/pipelines/pkg/client/clientset/versioned/typed/cloudflavor.io/v1"
-	fakepipelinesv1 "github.com/pi-victor/pipelines/pkg/client/clientset/versioned/typed/cloudflavor.io/v1/fake"
+	cloudflavorv1 "github.com/pi-victor/pipelines/pkg/client/clientset/versioned/typed/cloudflavor.io/v1"
+	fakecloudflavorv1 "github.com/pi-victor/pipelines/pkg/client/clientset/versioned/typed/cloudflavor.io/v1/fake"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/watch"
 	"k8s.io/client-go/discovery"
@@ -68,12 +68,12 @@ func (c *Clientset) Discovery() discovery.DiscoveryInterface {
 
 var _ clientset.Interface = &Clientset{}
 
-// PipelinesV1 retrieves the PipelinesV1Client
-func (c *Clientset) PipelinesV1() pipelinesv1.PipelinesV1Interface {
-	return &fakepipelinesv1.FakePipelinesV1{Fake: &c.Fake}
+// CloudflavorV1 retrieves the CloudflavorV1Client
+func (c *Clientset) CloudflavorV1() cloudflavorv1.CloudflavorV1Interface {
+	return &fakecloudflavorv1.FakeCloudflavorV1{Fake: &c.Fake}
 }
 
-// Pipelines retrieves the PipelinesV1Client
-func (c *Clientset) Pipelines() pipelinesv1.PipelinesV1Interface {
-	return &fakepipelinesv1.FakePipelinesV1{Fake: &c.Fake}
+// Cloudflavor retrieves the CloudflavorV1Client
+func (c *Clientset) Cloudflavor() cloudflavorv1.CloudflavorV1Interface {
+	return &fakecloudflavorv1.FakeCloudflavorV1{Fake: &c.Fake}
 }

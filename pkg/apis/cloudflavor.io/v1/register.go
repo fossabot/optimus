@@ -18,11 +18,11 @@ import (
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	groupAPI "github.com/pi-victor/pipelines/pkg/apis/cloudflavor.io"
+	"github.com/PI-Victor/pipelines/pkg/apis/cloudflavor.io"
 )
 
 var SchemeGroupVersion = schema.GroupVersion{
-	Group:   groupAPI.GroupName,
+	Group:   cloudflavorio.GroupName,
 	Version: "v1",
 }
 

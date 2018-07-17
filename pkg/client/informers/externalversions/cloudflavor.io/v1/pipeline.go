@@ -58,13 +58,13 @@ func NewFilteredPipelineInformer(client versioned.Interface, namespace string, r
 				if tweakListOptions != nil {
 					tweakListOptions(&options)
 				}
-				return client.PipelinesV1().Pipelines(namespace).List(options)
+				return client.CloudflavorV1().Pipelines(namespace).List(options)
 			},
 			WatchFunc: func(options metav1.ListOptions) (watch.Interface, error) {
 				if tweakListOptions != nil {
 					tweakListOptions(&options)
 				}
-				return client.PipelinesV1().Pipelines(namespace).Watch(options)
+				return client.CloudflavorV1().Pipelines(namespace).Watch(options)
 			},
 		},
 		&cloudflavoriov1.Pipeline{},

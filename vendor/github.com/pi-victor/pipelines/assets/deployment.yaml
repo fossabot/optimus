@@ -1,7 +1,12 @@
-apiVersion: pipelines.cloudflavor.io/v1
-kind: Deployment
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ci-namespace
+---
+apiVersion: cloudflavor.io/v1
+kind: Pipeline
 metadata:
   name: pipelines
-spec:
-  deploymentName: pipelines
-  replicas: 1
+  labels:
+    app: test
+  namespace: ci-namespace
