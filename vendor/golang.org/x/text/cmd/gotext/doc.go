@@ -24,7 +24,7 @@
 //
 // Usage:
 //
-// 	gotext extract <package>*
+// 	go extract <package>*
 //
 //
 //
@@ -33,7 +33,7 @@
 //
 // Usage:
 //
-// 	gotext rewrite <package>
+// 	go rewrite <package>
 //
 // rewrite is typically done once for a project. It rewrites all usages of
 // fmt to use x/text's message package whenever a message.Printer is in scope.
@@ -45,7 +45,7 @@
 //
 // Usage:
 //
-// 	gotext generate <package>
+// 	go generate <package>
 //
 //
 //

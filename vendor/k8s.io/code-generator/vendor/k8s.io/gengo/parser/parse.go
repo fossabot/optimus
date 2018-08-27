@@ -26,9 +26,7 @@ import (
 	"io/ioutil"
 	"os"
 	"os/exec"
-	"path"
 	"path/filepath"
-	"sort"
 	"strings"
 
 	"github.com/golang/glog"
@@ -227,12 +225,12 @@ func (b *Builder) AddDirRecursive(dir string) error {
 	// filepath.Walk includes the root dir, but we already did that, so we'll
 	// remove that prefix and rebuild a package import path.
 	prefix := b.buildPackages[dir].Dir
-	fn := func(filePath string, info os.FileInfo, err error) error {
+	fn := func(path string, info os.FileInfo, err error) error {
 		if info != nil && info.IsDir() {
-			rel := filepath.ToSlash(strings.TrimPrefix(filePath, prefix))
+			rel := strings.TrimPrefix(path, prefix)
 			if rel != "" {
 				// Make a pkg path.
-				pkg := path.Join(string(canonicalizeImportPath(b.buildPackages[dir].ImportPath)), rel)
+				pkg := filepath.Join(string(canonicalizeImportPath(b.buildPackages[dir].ImportPath)), rel)
 
 				// Add it.
 				if _, err := b.importPackage(pkg, true); err != nil {
@@ -427,20 +425,13 @@ func (b *Builder) typeCheckPackage(pkgPath importPathString) (*tc.Package, error
 // FindPackages fetches a list of the user-imported packages.
 // Note that you need to call b.FindTypes() first.
 func (b *Builder) FindPackages() []string {
-	// Iterate packages in a predictable order.
-	pkgPaths := []string{}
-	for k := range b.typeCheckedPackages {
-		pkgPaths = append(pkgPaths, string(k))
-	}
-	sort.Strings(pkgPaths)
-
 	result := []string{}
-	for _, pkgPath := range pkgPaths {
-		if b.userRequested[importPathString(pkgPath)] {
+	for pkgPath := range b.typeCheckedPackages {
+		if b.userRequested[pkgPath] {
 			// Since walkType is recursive, all types that are in packages that
 			// were directly mentioned will be included.  We don't need to
 			// include all types in all transitive packages, though.
-			result = append(result, pkgPath)
+			result = append(result, string(pkgPath))
 		}
 	}
 	return result
@@ -449,17 +440,16 @@ func (b *Builder) FindPackages() []string {
 // FindTypes finalizes the package imports, and searches through all the
 // packages for types.
 func (b *Builder) FindTypes() (types.Universe, error) {
-	// Take a snapshot of pkgs to iterate, since this will recursively mutate
-	// b.parsed. Iterate in a predictable order.
-	pkgPaths := []string{}
-	for pkgPath := range b.parsed {
-		pkgPaths = append(pkgPaths, string(pkgPath))
-	}
-	sort.Strings(pkgPaths)
-
 	u := types.Universe{}
-	for _, pkgPath := range pkgPaths {
-		if err := b.findTypesIn(importPathString(pkgPath), &u); err != nil {
+
+	// Take a snapshot of pkgs to iterate, since this will recursively mutate
+	// b.parsed.
+	keys := []importPathString{}
+	for pkgPath := range b.parsed {
+		keys = append(keys, pkgPath)
+	}
+	for _, pkgPath := range keys {
+		if err := b.findTypesIn(pkgPath, &u); err != nil {
 			return nil, err
 		}
 	}
@@ -489,7 +479,7 @@ func (b *Builder) findTypesIn(pkgPath importPathString, u *types.Universe) error
 	u.Package(string(pkgPath)).SourcePath = b.absPaths[pkgPath]
 
 	for _, f := range b.parsed[pkgPath] {
-		if _, fileName := filepath.Split(f.name); fileName == "doc.go" {
+		if strings.HasSuffix(f.name, "/doc.go") {
 			tp := u.Package(string(pkgPath))
 			// findTypesIn might be called multiple times. Clean up tp.Comments
 			// to avoid repeatedly fill same comments to it.
@@ -536,13 +526,7 @@ func (b *Builder) findTypesIn(pkgPath importPathString, u *types.Universe) error
 			b.addVariable(*u, nil, tv)
 		}
 	}
-
-	importedPkgs := []string{}
-	for k := range b.importGraph[pkgPath] {
-		importedPkgs = append(importedPkgs, string(k))
-	}
-	sort.Strings(importedPkgs)
-	for _, p := range importedPkgs {
+	for p := range b.importGraph[pkgPath] {
 		u.AddImports(string(pkgPath), p)
 	}
 	return nil
@@ -579,7 +563,7 @@ func splitLines(str string) []string {
 }
 
 func tcFuncNameToName(in string) types.Name {
-	name := strings.TrimPrefix(in, "func ")
+	name := strings.TrimLeft(in, "func ")
 	nameParts := strings.Split(name, "(")
 	return tcNameToName(nameParts[0])
 }
