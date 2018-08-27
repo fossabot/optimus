@@ -16,7 +16,7 @@ limitations under the License.
 package v1
 
 import (
-	internalinterfaces "github.com/PI-Victor/pipelines/pkg/client/informers/externalversions/internalinterfaces"
+	internalinterfaces "github.com/pi-victor/pipelines/pkg/client/informers/externalversions/internalinterfaces"
 )
 
 // Interface provides access to all the informers in this group version.
