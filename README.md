@@ -88,3 +88,8 @@ The following architecture diagram outlines the intended job control flow.
 Additional planned features:  
 * pod template with resource quota for stages
 * expose stage metrics through prometheus
+
+
+#### Building
+
+If you are on MacOS, run `hack/run-in-docker.sh` and then `make build`, `make gen`, `make test`.

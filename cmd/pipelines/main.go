@@ -19,11 +19,9 @@ import (
 
 	"github.com/golang/glog"
 
-
+	versionedClient "github.com/pi-victor/pipelines/pkg/client/clientset/versioned"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	k8sCmd "k8s.io/client-go/tools/clientcmd"
-
-	versionedClient "github.com/pi-victor/pipelines/pkg/client/clientset/versioned"
 )
 
 var (
@@ -41,7 +39,8 @@ func main() {
 	}
 	flag.Parse()
 
-	cfg, err := client.BuildConfigFromFlags(*master, *kuberconfig)
+	cfg, err := k8sCmd.BuildConfigFromFlags(*master, *kuberconfig)
+
 	if err != nil {
 		glog.Fatalf("Error building kubeconfig: %v", err)
 	}
@@ -50,13 +49,15 @@ func main() {
 	if err != nil {
 		glog.Fatalf("Error building example clientset: %v", err)
 	}
+	glog.V(0).Info(cfg)
 
-	list, err := versionedClient.Cloudflavoriov1().Pipelines("default").List(metav1.ListOptions{})
+	list, err := client.CloudflavorV1().Pipelines("default").List(metav1.ListOptions{})
+
 	if err != nil {
 		glog.Fatalf("Error listing all databases: %v", err)
 	}
 
-	for _, pipeline := range list.Pipelines {
+	for _, pipeline := range list.Items {
 		glog.V(0).Infof("pipeline: %#v", pipeline)
 	}
 }

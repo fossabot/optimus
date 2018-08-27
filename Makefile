@@ -6,8 +6,8 @@ tag=$(shell git describe --abbrev=0 --tags)
 
 build: verify
 	rm -rf _output || true
-	mkdir -p _output/bin/
-	 $(gobuild) -v -ldflags "-X main.commit=$(commit) -X main.version=$(vers)" ./cmd/pipelines/main.go
+	mkdir -p _output/bin/	
+	$(gobuild) -v -ldflags "-X main.commit=$(commit) -X main.version=$(vers)" ./cmd/pipelines/main.go
 
 generate:
 	echo "test"

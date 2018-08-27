@@ -10,7 +10,6 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-
 package v1
 
 import (
@@ -18,13 +17,12 @@ import (
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	"github.com/PI-Victor/pipelines/pkg/apis/cloudflavor.io"
+	cloudflavorio "github.com/pi-victor/pipelines/pkg/apis/cloudflavor.io"
 )
 
-var SchemeGroupVersion = schema.GroupVersion{
-	Group:   cloudflavorio.GroupName,
-	Version: "v1",
-}
+// SchemeGroupVersion is group version used to register these objects
+
+var SchemeGroupVersion = schema.GroupVersion{Group: cloudflavorio.GroupName, Version: "v1"}
 
 // Resource takes an unqualified resource and returns a Group qualified GroupResource
 func Resource(resource string) schema.GroupResource {
@@ -47,8 +45,7 @@ func init() {
 
 // Adds the list of known types to api.Scheme.
 func addKnownTypes(scheme *runtime.Scheme) error {
-	scheme.AddKnownTypes(
-		SchemeGroupVersion,
+	scheme.AddKnownTypes(SchemeGroupVersion,
 		&Pipeline{},
 		&PipelineList{},
 	)
