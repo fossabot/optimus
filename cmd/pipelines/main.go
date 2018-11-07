@@ -54,7 +54,7 @@ func main() {
 	list, err := client.CloudflavorV1().Pipelines("default").List(metav1.ListOptions{})
 
 	if err != nil {
-		glog.Fatalf("Error listing all databases: %v", err)
+		glog.Fatalf("Error listing all pipelines: %v", err)
 	}
 
 	for _, pipeline := range list.Items {

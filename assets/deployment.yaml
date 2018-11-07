@@ -10,3 +10,20 @@ metadata:
   labels:
     app: test
   namespace: ci-namespace
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: pipelines
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: pipelines
+        env: dev # NOTE: see how to configure this.
+    spec:
+      containers:
+      - name: pipelines
+        image: quay.io/cloudflavor/pipelines
+        imagePullPolicy: Always
