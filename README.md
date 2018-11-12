@@ -26,7 +26,7 @@ A rough estimate of the CRDs intended use.
 It only includes the CI part and not the CD part**
 
 ```yaml
-apiVersion: pipelines.cloudflavor.io/v1
+apiVersion: pipelines.cloudflavor/v1
 kind: Pipeline
 metadata:
   name: example-pipeline
