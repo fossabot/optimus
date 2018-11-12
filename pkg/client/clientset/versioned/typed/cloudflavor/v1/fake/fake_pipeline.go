@@ -13,7 +13,7 @@ limitations under the License.
 package fake
 
 import (
-	cloudflavor_io_v1 "github.com/pi-victor/pipelines/pkg/apis/cloudflavor.io/v1"
+	cloudflavor_v1 "github.com/pi-victor/pipelines/pkg/apis/cloudflavor/v1"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	labels "k8s.io/apimachinery/pkg/labels"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"
@@ -28,25 +28,25 @@ type FakePipelines struct {
 	ns   string
 }
 
-var pipelinesResource = schema.GroupVersionResource{Group: "cloudflavor.io", Version: "v1", Resource: "pipelines"}
+var pipelinesResource = schema.GroupVersionResource{Group: "cloudflavor", Version: "v1", Resource: "pipelines"}
 
-var pipelinesKind = schema.GroupVersionKind{Group: "cloudflavor.io", Version: "v1", Kind: "Pipeline"}
+var pipelinesKind = schema.GroupVersionKind{Group: "cloudflavor", Version: "v1", Kind: "Pipeline"}
 
 // Get takes name of the pipeline, and returns the corresponding pipeline object, and an error if there is any.
-func (c *FakePipelines) Get(name string, options v1.GetOptions) (result *cloudflavor_io_v1.Pipeline, err error) {
+func (c *FakePipelines) Get(name string, options v1.GetOptions) (result *cloudflavor_v1.Pipeline, err error) {
 	obj, err := c.Fake.
-		Invokes(testing.NewGetAction(pipelinesResource, c.ns, name), &cloudflavor_io_v1.Pipeline{})
+		Invokes(testing.NewGetAction(pipelinesResource, c.ns, name), &cloudflavor_v1.Pipeline{})
 
 	if obj == nil {
 		return nil, err
 	}
-	return obj.(*cloudflavor_io_v1.Pipeline), err
+	return obj.(*cloudflavor_v1.Pipeline), err
 }
 
 // List takes label and field selectors, and returns the list of Pipelines that match those selectors.
-func (c *FakePipelines) List(opts v1.ListOptions) (result *cloudflavor_io_v1.PipelineList, err error) {
+func (c *FakePipelines) List(opts v1.ListOptions) (result *cloudflavor_v1.PipelineList, err error) {
 	obj, err := c.Fake.
-		Invokes(testing.NewListAction(pipelinesResource, pipelinesKind, c.ns, opts), &cloudflavor_io_v1.PipelineList{})
+		Invokes(testing.NewListAction(pipelinesResource, pipelinesKind, c.ns, opts), &cloudflavor_v1.PipelineList{})
 
 	if obj == nil {
 		return nil, err
@@ -56,8 +56,8 @@ func (c *FakePipelines) List(opts v1.ListOptions) (result *cloudflavor_io_v1.Pip
 	if label == nil {
 		label = labels.Everything()
 	}
-	list := &cloudflavor_io_v1.PipelineList{}
-	for _, item := range obj.(*cloudflavor_io_v1.PipelineList).Items {
+	list := &cloudflavor_v1.PipelineList{}
+	for _, item := range obj.(*cloudflavor_v1.PipelineList).Items {
 		if label.Matches(labels.Set(item.Labels)) {
 			list.Items = append(list.Items, item)
 		}
@@ -73,31 +73,31 @@ func (c *FakePipelines) Watch(opts v1.ListOptions) (watch.Interface, error) {
 }
 
 // Create takes the representation of a pipeline and creates it.  Returns the server's representation of the pipeline, and an error, if there is any.
-func (c *FakePipelines) Create(pipeline *cloudflavor_io_v1.Pipeline) (result *cloudflavor_io_v1.Pipeline, err error) {
+func (c *FakePipelines) Create(pipeline *cloudflavor_v1.Pipeline) (result *cloudflavor_v1.Pipeline, err error) {
 	obj, err := c.Fake.
-		Invokes(testing.NewCreateAction(pipelinesResource, c.ns, pipeline), &cloudflavor_io_v1.Pipeline{})
+		Invokes(testing.NewCreateAction(pipelinesResource, c.ns, pipeline), &cloudflavor_v1.Pipeline{})
 
 	if obj == nil {
 		return nil, err
 	}
-	return obj.(*cloudflavor_io_v1.Pipeline), err
+	return obj.(*cloudflavor_v1.Pipeline), err
 }
 
 // Update takes the representation of a pipeline and updates it. Returns the server's representation of the pipeline, and an error, if there is any.
-func (c *FakePipelines) Update(pipeline *cloudflavor_io_v1.Pipeline) (result *cloudflavor_io_v1.Pipeline, err error) {
+func (c *FakePipelines) Update(pipeline *cloudflavor_v1.Pipeline) (result *cloudflavor_v1.Pipeline, err error) {
 	obj, err := c.Fake.
-		Invokes(testing.NewUpdateAction(pipelinesResource, c.ns, pipeline), &cloudflavor_io_v1.Pipeline{})
+		Invokes(testing.NewUpdateAction(pipelinesResource, c.ns, pipeline), &cloudflavor_v1.Pipeline{})
 
 	if obj == nil {
 		return nil, err
 	}
-	return obj.(*cloudflavor_io_v1.Pipeline), err
+	return obj.(*cloudflavor_v1.Pipeline), err
 }
 
 // Delete takes name of the pipeline and deletes it. Returns an error if one occurs.
 func (c *FakePipelines) Delete(name string, options *v1.DeleteOptions) error {
 	_, err := c.Fake.
-		Invokes(testing.NewDeleteAction(pipelinesResource, c.ns, name), &cloudflavor_io_v1.Pipeline{})
+		Invokes(testing.NewDeleteAction(pipelinesResource, c.ns, name), &cloudflavor_v1.Pipeline{})
 
 	return err
 }
@@ -106,17 +106,17 @@ func (c *FakePipelines) Delete(name string, options *v1.DeleteOptions) error {
 func (c *FakePipelines) DeleteCollection(options *v1.DeleteOptions, listOptions v1.ListOptions) error {
 	action := testing.NewDeleteCollectionAction(pipelinesResource, c.ns, listOptions)
 
-	_, err := c.Fake.Invokes(action, &cloudflavor_io_v1.PipelineList{})
+	_, err := c.Fake.Invokes(action, &cloudflavor_v1.PipelineList{})
 	return err
 }
 
 // Patch applies the patch and returns the patched pipeline.
-func (c *FakePipelines) Patch(name string, pt types.PatchType, data []byte, subresources ...string) (result *cloudflavor_io_v1.Pipeline, err error) {
+func (c *FakePipelines) Patch(name string, pt types.PatchType, data []byte, subresources ...string) (result *cloudflavor_v1.Pipeline, err error) {
 	obj, err := c.Fake.
-		Invokes(testing.NewPatchSubresourceAction(pipelinesResource, c.ns, name, data, subresources...), &cloudflavor_io_v1.Pipeline{})
+		Invokes(testing.NewPatchSubresourceAction(pipelinesResource, c.ns, name, data, subresources...), &cloudflavor_v1.Pipeline{})
 
 	if obj == nil {
 		return nil, err
 	}
-	return obj.(*cloudflavor_io_v1.Pipeline), err
+	return obj.(*cloudflavor_v1.Pipeline), err
 }

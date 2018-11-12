@@ -16,7 +16,7 @@ limitations under the License.
 package v1
 
 import (
-	cloudflavor_io_v1 "github.com/pi-victor/pipelines/pkg/apis/cloudflavor.io/v1"
+	cloudflavor_v1 "github.com/pi-victor/pipelines/pkg/apis/cloudflavor/v1"
 	versioned "github.com/pi-victor/pipelines/pkg/client/clientset/versioned"
 	internalinterfaces "github.com/pi-victor/pipelines/pkg/client/informers/externalversions/internalinterfaces"
 	v1 "github.com/pi-victor/pipelines/pkg/client/listers/cloudflavor/v1"
@@ -51,7 +51,7 @@ func NewPipelineInformer(client versioned.Interface, namespace string, resyncPer
 				return client.CloudflavorV1().Pipelines(namespace).Watch(options)
 			},
 		},
-		&cloudflavor_io_v1.Pipeline{},
+		&cloudflavor_v1.Pipeline{},
 		resyncPeriod,
 		indexers,
 	)
@@ -62,7 +62,7 @@ func defaultPipelineInformer(client versioned.Interface, resyncPeriod time.Durat
 }
 
 func (f *pipelineInformer) Informer() cache.SharedIndexInformer {
-	return f.factory.InformerFor(&cloudflavor_io_v1.Pipeline{}, defaultPipelineInformer)
+	return f.factory.InformerFor(&cloudflavor_v1.Pipeline{}, defaultPipelineInformer)
 }
 
 func (f *pipelineInformer) Lister() v1.PipelineLister {

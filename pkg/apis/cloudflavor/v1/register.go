@@ -17,12 +17,12 @@ import (
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	cloudflavorio "github.com/pi-victor/pipelines/pkg/apis/cloudflavor.io"
+	cloudflavor "github.com/pi-victor/pipelines/pkg/apis/cloudflavor"
 )
 
 // SchemeGroupVersion is group version used to register these objects
 
-var SchemeGroupVersion = schema.GroupVersion{Group: cloudflavorio.GroupName, Version: "v1"}
+var SchemeGroupVersion = schema.GroupVersion{Group: cloudflavor.GroupName, Version: "v1"}
 
 // Resource takes an unqualified resource and returns a Group qualified GroupResource
 func Resource(resource string) schema.GroupResource {
