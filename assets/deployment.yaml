@@ -3,7 +3,7 @@ kind: Namespace
 metadata:
   name: ci-namespace
 ---
-apiVersion: cloudflavor.io/v1
+apiVersion: cloudflavor/v1
 kind: Pipeline
 metadata:
   name: pipelines
