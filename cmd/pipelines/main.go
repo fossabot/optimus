@@ -49,15 +49,22 @@ func main() {
 	if err != nil {
 		glog.Fatalf("Error building example clientset: %v", err)
 	}
-	glog.V(0).Info(cfg)
+	glog.V(0).Infof("%#v", cfg)
 
-	list, err := client.CloudflavorV1().Pipelines("default").List(metav1.ListOptions{})
+	list, err := client.CloudflavorV1().Pipelines("ci-namespace").List(metav1.ListOptions{})
 
 	if err != nil {
 		glog.Fatalf("Error listing all pipelines: %v", err)
 	}
-
-	for _, pipeline := range list.Items {
-		glog.V(0).Infof("pipeline: %#v", pipeline)
+	glog.V(0).Infof("These are the pipelines: %#v", list)
+	for {
+		if list.Items != nil {
+			for _, pipeline := range list.Items {
+				glog.V(0).Infof("pipeline: %#v\n", pipeline)
+				continue
+			}
+			glog.V(0).Info("No pipelines found, list is empty!!!")
+		}
 	}
+
 }
