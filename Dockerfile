@@ -1,13 +1,15 @@
 FROM alpine:latest
 
-RUN mkdir -p /pipelines
+RUN mkdir -p /cloudflavor
 
-WORKDIR /pipelines
+WORKDIR /cloudflavor
 
-ADD _output/bin/pipelines /pipelines
+ADD _output/bin/pipelines /cloudflavor/
 
-RUN chown -R 1000 /pipelines
+RUN chown -R 1000:1000 /cloudflavor
+
+RUN chmod +x pipelines
 
 USER 1000
 
-CMD ["pipelines"]
+CMD ["/cloudflavor/pipelines"]
