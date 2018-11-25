@@ -1,0 +1,10 @@
+---
+apiVersion: cloudflavor.io/v1
+kind: Pipeline
+metadata:
+  name: pipeline
+  namespace: ci-namespace
+spec:
+  Project:
+    Username: tac
+    
