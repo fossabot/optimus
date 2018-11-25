@@ -17,7 +17,7 @@ import (
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	cloudflavor "github.com/pi-victor/pipelines/pkg/apis/cloudflavor"
+	cloudflavor "github.com/pi-victor/pipelines/pkg/apis/cloudflavor.io"
 )
 
 // SchemeGroupVersion is group version used to register these objects

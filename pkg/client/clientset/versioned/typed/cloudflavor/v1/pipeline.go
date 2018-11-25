@@ -13,7 +13,7 @@ limitations under the License.
 package v1
 
 import (
-	v1 "github.com/pi-victor/pipelines/pkg/apis/cloudflavor/v1"
+	v1 "github.com/pi-victor/pipelines/pkg/apis/cloudflavor.io/v1"
 	scheme "github.com/pi-victor/pipelines/pkg/client/clientset/versioned/scheme"
 	meta_v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	types "k8s.io/apimachinery/pkg/types"

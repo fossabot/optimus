@@ -14,5 +14,5 @@ limitations under the License.
 package cloudflavor
 
 const (
-	GroupName = "cloudflavor"
+	GroupName = "cloudflavor.io"
 )

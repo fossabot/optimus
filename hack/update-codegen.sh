@@ -9,5 +9,5 @@ CODEGEN_PKG=${CODEGEN_PKG:-$(cd ${SCRIPT_ROOT}; ls -d -1 ./vendor/k8s.io/code-ge
 
 vendor/k8s.io/code-generator/generate-groups.sh all \
   github.com/pi-victor/pipelines/pkg/client  github.com/pi-victor/pipelines/pkg/apis \
-  cloudflavor:v1 \
+  cloudflavor.io:v1 \
   --go-header-file ${SCRIPT_ROOT}/assets/license-header.txt
