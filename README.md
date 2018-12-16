@@ -1,6 +1,6 @@
  Optimus 
 ---
-[![Docker Repository on Quay](https://quay.io/repository/cloudflavor/optimus/status "Docker Repository on Quay")](https://quay.io/repository/cloudflavor/optimus)
+[![Docker Repository on Quay](https://quay.io/repository/cloudflavor/optimus/status?token=04373e46-7592-45e9-bfcb-002c57a50d7a "Docker Repository on Quay")](https://quay.io/repository/cloudflavor/optimus)
 [![Build Status](https://travis-ci.org/cloudflavor/optimus.svg?branch=master)](https://travis-ci.org/cloudflavor/optimus)
 [![codecov](https://codecov.io/gh/cloudflavor/optimus/branch/master/graph/badge.svg)](https://codecov.io/gh/cloudflavor/optimus)
 [![Go Report Card](https://goreportcard.com/badge/github.com/cloudflavor/optimus)](https://goreportcard.com/report/github.com/cloudflavor/optimus)  
