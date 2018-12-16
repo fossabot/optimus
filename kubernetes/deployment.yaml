@@ -7,27 +7,30 @@ metadata:
 apiVersion: optimus.cloudflavor.io/v1
 kind: Pipeline
 metadata:
-  name: pipelines
+  name: tests
   namespace: optimus
   labels:
-    app: pipelines
+    app: optimus
 ---
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: pipelines
+  name: test-deployment
   namespace: optimus
   labels:
-    app: pipelines
+    app: optimus
+    environment: development
 spec:
   replicas: 1
   template:
     metadata:
       labels:
-        app: pipelines
+        app: optimus
+        environment: development
     spec:
       containers:
-      - name: pipelines
+      - name: test
         image: quay.io/cloudflavor/optimus:latest
         imagePullPolicy: Always
-      serviceAccountName: pipelines
+      serviceAccountName: optimus-sa
+      automountServiceAccountToken: true
