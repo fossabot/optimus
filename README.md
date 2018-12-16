@@ -1,32 +1,19 @@
-# CI Pipelines
-[![Docker Repository on Quay](https://quay.io/repository/cloudflavor/pipelines/status "Docker Repository on Quay")](https://quay.io/repository/cloudflavor/pipelines)
-[![Build Status](https://travis-ci.org/PI-Victor/pipelines.svg?branch=master)](https://travis-ci.org/PI-Victor/pipelines)
-[![codecov](https://codecov.io/gh/PI-Victor/pipelines/branch/master/graph/badge.svg)](https://codecov.io/gh/PI-Victor/pipelines)
-[![Go Report Card](https://goreportcard.com/badge/github.com/pi-victor/pipelines)](https://goreportcard.com/report/github.com/pi-victor/pipelines)  
+ Optimus 
+---
+[![Docker Repository on Quay](https://quay.io/repository/cloudflavor/optimus/status "Docker Repository on Quay")](https://quay.io/repository/cloudflavor/optimus)
+[![Build Status](https://travis-ci.org/cloudflavor/optimus.svg?branch=master)](https://travis-ci.org/cloudflavor/optimus)
+[![codecov](https://codecov.io/gh/cloudflavor/optimus/branch/master/graph/badge.svg)](https://codecov.io/gh/cloudflavor/optimus)
+[![Go Report Card](https://goreportcard.com/badge/github.com/cloudflavor/optimus)](https://goreportcard.com/report/github.com/cloudflavor/optimus)  
 
+Optimus leverages Kubernetes CRDs to bring CI/CD natively to Kubernetes.
 
-This is a CRD controller for orchestrating k8s native resources into ci-cd
-pipelines.  
-
-The intended purpose is to have a VCS watcher/web-hook that will run the
-pipeline on a VCS event, run each defined stage, build the container image
-(securely exposed docker instance on a remote host), push the container to the
-user defined registry, notify the user by calling his CRD defined web-hook of
-the stage/stage command exit status.  
-
-If the object storage option is defined, the job artifacts are tar archived and
-pushed under the project bucket as `jobname-longdateformat.tar.gz`.
-
- *And maybe some other magic too.*  
-
-
-A rough estimate of the CRDs intended use.  
+Intended use:
 
 **NOTE: this changes constantly and may contain invalid syntax!
 It only includes the CI part and not the CD part**
 
 ```yaml
-apiVersion: pipelines.cloudflavor/v1
+apiVersion: optimus.cloudflavor/v1
 kind: Pipeline
 metadata:
   name: example-pipeline
@@ -81,14 +68,9 @@ spec:
           - test
 ```
 
-The following architecture diagram outlines the intended job control flow.
-![k8s pipeliens arch](assets/piplines-workflow.png)
-
-
 Additional planned features:  
 * pod template with resource quota for stages
 * expose stage metrics through prometheus
-
 
 #### Building
 

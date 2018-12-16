@@ -1,13 +1,13 @@
-image=quay.io/cloudflavor/pipelines
+image=quay.io/cloudflavor/optimus
 vers=v0.1.0-alpha
-gobuild=go build -o _output/bin/pipelines
+gobuild=go build -o _output/bin/optimus
 commit=$(shell git rev-parse --short HEAD)
 tag=$(shell git describe --abbrev=0 --tags)
 
 build: verify
 	rm -rf _output || true
 	mkdir -p _output/bin/
-	$(gobuild) -v -ldflags "-X main.commit=$(commit) -X main.version=$(vers)" ./cmd/pipelines/main.go
+	GOOS=linux GOARCH=amd64 $(gobuild) -v -ldflags "-X main.commit=$(commit) -X main.version=$(vers)" ./cmd/optimus/main.go
 
 generate:
 	echo "test"
