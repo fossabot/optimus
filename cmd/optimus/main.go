@@ -10,18 +10,18 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-
 package main
 
 import (
 	"flag"
-	"os"
+	"fmt"
 
 	"github.com/golang/glog"
 
-	versionedClient "github.com/pi-victor/pipelines/pkg/client/clientset/versioned"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	k8sCmd "k8s.io/client-go/tools/clientcmd"
+	"k8s.io/client-go/tools/clientcmd"
+
+	optimusClient "github.com/cloudflavor/optimus/pkg/client/clientset/versioned"
 )
 
 var (
@@ -30,41 +30,24 @@ var (
 )
 
 func main() {
-	// set logging capabilities. Flush logs and set stderr as default..
-	defer glog.Flush()
-
-	flag.Set("logtostderr", "true")
-	if os.Getenv("PIPELINE_LOG_LEVEL") != "" {
-		flag.Set("v", os.Getenv("PIPELINE_LOG_LEVEL"))
-	}
 	flag.Parse()
 
-	cfg, err := k8sCmd.BuildConfigFromFlags(*master, *kuberconfig)
-
+	cfg, err := clientcmd.BuildConfigFromFlags(*master, *kuberconfig)
 	if err != nil {
 		glog.Fatalf("Error building kubeconfig: %v", err)
 	}
 
-	client, err := versionedClient.NewForConfig(cfg)
+	pipelinesClient, err := optimusClient.NewForConfig(cfg)
 	if err != nil {
 		glog.Fatalf("Error building example clientset: %v", err)
 	}
-	glog.V(0).Infof("%#v", cfg)
-
-	list, err := client.CloudflavorV1().Pipelines("ci-namespace").List(metav1.ListOptions{})
-
+	list, err := pipelinesClient.OptimusV1().Pipelines("optimus").List(metav1.ListOptions{})
 	if err != nil {
-		glog.Fatalf("Error listing all pipelines: %v", err)
-	}
-	glog.V(0).Infof("These are the pipelines: %#v", list)
-	for {
-		if list.Items != nil {
-			for _, pipeline := range list.Items {
-				glog.V(0).Infof("pipeline: %#v\n", pipeline)
-				continue
-			}
-			glog.V(0).Info("No pipelines found, list is empty!!!")
-		}
+		glog.Fatalf("Error listing all databases: %v", err)
 	}
 
+	for _, pipeline := range list.Items {
+		fmt.Printf("THIS IS THE PIPELINE %#v", pipeline.GetName())
+		break
+	}
 }

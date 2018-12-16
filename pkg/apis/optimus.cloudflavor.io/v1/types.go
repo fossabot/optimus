@@ -21,19 +21,16 @@ import (
 // PipelineList is a list of pipeline CRDs.
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
-
 type PipelineList struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 
-	Items []Pipeline `json:"pipelines"`
+	Items []Pipeline `json:"items"`
 }
 
 // Pipeline is the utmost CRD type that defines a new pipeline.
 // +genclient
-// +genclient:noStatus
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
-
 type Pipeline struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
