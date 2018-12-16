@@ -1,9 +1,9 @@
 ---
-apiVersion: cloudflavor.io/v1
+apiVersion: optimus.cloudflavor.io/v1
 kind: Pipeline
 metadata:
   name: pipeline
-  namespace: ci-namespace
+  namespace: optimus
 spec:
   Project:
     Username: tac

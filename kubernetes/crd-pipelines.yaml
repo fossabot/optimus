@@ -2,10 +2,10 @@
 apiVersion: apiextensions.k8s.io/v1beta1
 kind: CustomResourceDefinition
 metadata:
-  name: pipelines.cloudflavor.io
+  name: pipelines.optimus.cloudflavor.io
 spec:
-  group: cloudflavor.io
   version: v1
+  group: optimus.cloudflavor.io
   scope: Namespaced
   names:
     kind: Pipeline

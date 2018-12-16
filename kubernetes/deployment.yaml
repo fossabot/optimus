@@ -2,32 +2,32 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: ci-namespace
+  name: optimus
 ---
-apiVersion: cloudflavor.io/v1
+apiVersion: optimus.cloudflavor.io/v1
 kind: Pipeline
 metadata:
   name: pipelines
+  namespace: optimus
   labels:
-    app: test
-  namespace: ci-namespace
+    app: pipelines
 ---
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: pipelines
+  namespace: optimus
   labels:
-    app: ci-pipelines
+    app: pipelines
 spec:
   replicas: 1
   template:
     metadata:
       labels:
         app: pipelines
-        env: dev # NOTE: see how to configure this.
     spec:
-      serviceAccountName: pipelines
       containers:
       - name: pipelines
-        image: quay.io/cloudflavor/pipelines
+        image: quay.io/cloudflavor/optimus:latest
         imagePullPolicy: Always
+      serviceAccountName: pipelines
