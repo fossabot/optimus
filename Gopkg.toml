@@ -35,3 +35,7 @@ ignored = ["k8s.io/code-generator"]
   unused-packages = true
 
 
+
+[[constraint]]
+  name = "k8s.io/client-go"
+  version = "10.0.0"
