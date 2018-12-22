@@ -4,14 +4,6 @@ kind: Namespace
 metadata:
   name: optimus
 ---
-apiVersion: optimus.cloudflavor.io/v1
-kind: Pipeline
-metadata:
-  name: tests
-  namespace: optimus
-  labels:
-    app: optimus
----
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:

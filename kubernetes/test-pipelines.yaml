@@ -4,7 +4,23 @@ kind: Pipeline
 metadata:
   name: pipeline
   namespace: optimus
-spec:
-  Project:
-    Username: tac
-    
+jobs:
+- name: API Project Sample
+  registry:
+    uri: quay.io/cloudflavor/pipelines
+  stages:
+  - name: Checkout project
+    steps:
+    - cmd:
+      - echo test
+      name: step1
+      runtimeImage: quay.io/cloudflavor/api-test
+  - name: Unit:test
+    steps:
+    - cmd:
+      - npm test
+  - name: Build container image
+    steps:
+    - cmd:
+      - docker build -t test.io/test:latest .
+  username: test
