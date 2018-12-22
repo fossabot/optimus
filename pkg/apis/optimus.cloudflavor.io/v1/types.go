@@ -14,6 +14,8 @@ limitations under the License.
 package v1
 
 import (
+	"time"
+
 	"k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
@@ -34,42 +36,42 @@ type Pipeline struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 
-	Jobs []*Job `json:"project"`
+	Jobs []*Job `json:"jobs"`
 }
 
 // Job holds the specifics of a pipeline project.
 type Job struct {
-	metav1.TypeMeta   `json:",inline"`
-	metav1.ObjectMeta `json:"metadata,omitempty"`
-
+	Name             string            `json:"name"`
 	ArchiveArtifacts bool              `json:"archive"`
 	Registry         ContainerRegistry `json:"registry"`
 	Notifications    Notifications     `json:"notifications,omitempty"`
-	PollInterval     uint32            `json:"poll_interval"`
 	Repository       string            `json:"repository"`
 	Username         string            `json:"username"`
-	RunInterval      *RunInterval      `json:"run_interval,omitempty"`
+	RunInterval      *RunInterval      `json:"runInterval,omitempty"`
 
-	Stages []Stage `json:"stages"`
+	Stages []*Stage `json:"stages"`
 }
 
 // Stage represents a stage in the pipeline.
 type Stage struct {
-	Name        string `json:"stage_name"`
-	ExitOnError bool   `json:"exit_on_error"`
-	Parallel    bool   `json:"parallel"`
+	Name     string `json:"name"`
+	Parallel bool   `json:"parallel"`
 
-	Commands []Command `json:"commands"`
+	Steps []Step `json:"steps"`
+
+	Status Status `json:"status"`
 }
 
-// Command represents a chain of commands that is related to a stage in the
+// Step represents a chain of commands that is related to a stage in the
 // pipeline.
-type Command struct {
-	RuntimeImage string   `json:"runtime_image"`
-	ExitOnError  string   `json:"exit_on_error"`
-	Cmd          []string `json:"commands"`
+type Step struct {
+	ResourceRequirements *v1.ResourceRequirements `json:"podTemplate,omitempty"`
 
-	PodTemplate *v1.ResourceRequirements `json:"pod_template,omitempty"`
+	Name         string `json:"name"`
+	RuntimeImage string `json:"runtimeImage"`
+	IgnoreErrors bool   `json:"ignoreError"`
+
+	Cmd []string `json:"cmd"`
 }
 
 // ContainerRegistry holds information about a registry where an image will be
@@ -97,3 +99,8 @@ type Notifications struct {
 // in cron format.
 // TODO: add kubernetes cronjob types to this, avoid reinventing the wheel.
 type RunInterval struct{}
+
+type Status struct {
+	Time  time.Time
+	State []string
+}
