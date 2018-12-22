@@ -1,5 +1,5 @@
 /*
-Copyright 2018 Victor Palade.
+Copyright 2018 Cloudflavor Org contributors.
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -19,7 +19,6 @@ import (
 )
 
 // PipelineList is a list of pipeline CRDs.
-
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 type PipelineList struct {
 	metav1.TypeMeta   `json:",inline"`
@@ -35,11 +34,11 @@ type Pipeline struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 
-	Project Project `json:"project"`
+	Jobs []*Job `json:"project"`
 }
 
-// Project holds the specifics of a pipeline project.
-type Project struct {
+// Job holds the specifics of a pipeline project.
+type Job struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 
