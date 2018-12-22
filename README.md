@@ -5,7 +5,7 @@
 [![codecov](https://codecov.io/gh/cloudflavor/optimus/branch/master/graph/badge.svg)](https://codecov.io/gh/cloudflavor/optimus)
 [![Go Report Card](https://goreportcard.com/badge/github.com/cloudflavor/optimus)](https://goreportcard.com/report/github.com/cloudflavor/optimus)  
 
-Optimus leverages Kubernetes CRDs to bring CI/CD natively to Kubernetes.
+Optimus delivers kubernetes native CI/CD Pipelines by leveraging CRDs.
 
 Intended use:
 
@@ -13,7 +13,7 @@ Intended use:
 It only includes the CI part and not the CD part**
 
 ```yaml
-apiVersion: optimus.cloudflavor/v1
+apiVersion: optimus.cloudflavor.io/v1
 kind: Pipeline
 metadata:
   name: example-pipeline
