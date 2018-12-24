@@ -15,19 +15,20 @@ package main
 
 import (
 	"flag"
-	//	"time"
 	"os"
+	"strconv"
+	"time"
 
-	"github.com/golang/glog"
+	"github.com/sirupsen/logrus"
 
-	//	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	//	"k8s.io/client-go/informers"
+	"k8s.io/client-go/informers"
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/tools/clientcmd"
 
 	optimusClient "github.com/cloudflavor/optimus/pkg/client/clientset/versioned"
-	//	optimusInformers "github.com/cloudflavor/optimus/pkg/client/informers/externalversions"
+	optimusInformers "github.com/cloudflavor/optimus/pkg/client/informers/externalversions"
 	optimusController "github.com/cloudflavor/optimus/pkg/controller"
+	utils "github.com/cloudflavor/optimus/pkg/utils"
 )
 
 var (
@@ -35,40 +36,51 @@ var (
 	master    = flag.String("master", "", "The address of the Kubernetes API server. Overrides any value in kubeconfig. Only required if out-of-cluster.")
 )
 
-func init() {
-	// set logging capabilities. Flush logs and set stderr as default..
-	defer glog.Flush()
-	flag.Set("logtostderr", "true")
-	if os.Getenv("OPTIMUS_LOG_LEVEL") != "" {
-		flag.Set("v", os.Getenv("OPTIMUS_LOG_LEVEL"))
-	}
-	flag.Parse()
-}
-
 func main() {
 	flag.Parse()
+
+	logLevel := os.Getenv("OPTIMUS_LOG_LEVEL")
+	if logLevel != "" {
+		level, err := strconv.Atoi(logLevel)
+		if err != nil {
+			logrus.Fatalf("Failed to convert assigned log level! %#v", err)
+		}
+		logrus.SetLevel(logrus.AllLevels[level])
+	}
+	logrus.SetOutput(os.Stdout)
+
 	cfg, err := clientcmd.BuildConfigFromFlags(*master, *k8sConfig)
 	if err != nil {
-		glog.Fatalf("Error building kubeconfig: %v", err)
+		logrus.Fatalf("Error building configuration: %v", err)
 	}
+
 	localClient, err := optimusClient.NewForConfig(cfg)
 	if err != nil {
-		glog.Fatalf("Error building example clientset: %v", err)
+		logrus.Fatalf("Error building clientset: %v", err)
 	}
 
-	k8sClient, err := kubernetes.NewForConfig(cfg)
+	client, err := kubernetes.NewForConfig(cfg)
 	if err != nil {
-		glog.Fatalf("Error creating new kubernetes client, %#v", err)
+		logrus.Fatalf("Error creating new kubernetes client, %#v", err)
 	}
 
-	//	optimusInformersFactory := optimusInformers.NewSharedInformerFactory(localClient, time.Second*10)
-	//	k8sInformerFactory := informers.NewSharedInformerFactory(k8sClient, time.Second*10)
+	informersFactory := informers.NewSharedInformerFactory(client, time.Second*10)
+	optimusInformersFactory := optimusInformers.NewSharedInformerFactory(localClient, time.Second*10)
 
-	controller := optimusController.NewController(k8sClient, localClient)
+	controller := optimusController.NewController(
+		client,
+		localClient,
+		informersFactory,
+		optimusInformersFactory,
+	)
+	stopCh := utils.SetupSignalHandler()
+	logrus.Info("Starting informers factory")
+	informersFactory.Start(stopCh)
 
-	stop := make(chan struct{})
-	defer close(stop)
-	go controller.Run(stop)
+	logrus.Info("Starting optimus informers factory")
+	optimusInformersFactory.Start(stopCh)
 
-	select {}
+	if err := controller.Start(2, stopCh); err != nil {
+		logrus.Fatalf("Failed to start optimus controller: %s", err.Error())
+	}
 }
