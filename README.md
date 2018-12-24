@@ -1,9 +1,10 @@
- Optimus 
+Optimus 
 ---
 [![Docker Repository on Quay](https://quay.io/repository/cloudflavor/optimus/status?token=04373e46-7592-45e9-bfcb-002c57a50d7a "Docker Repository on Quay")](https://quay.io/repository/cloudflavor/optimus)
 [![Build Status](https://travis-ci.org/cloudflavor/optimus.svg?branch=master)](https://travis-ci.org/cloudflavor/optimus)
 [![codecov](https://codecov.io/gh/cloudflavor/optimus/branch/master/graph/badge.svg)](https://codecov.io/gh/cloudflavor/optimus)
-[![Go Report Card](https://goreportcard.com/badge/github.com/cloudflavor/optimus)](https://goreportcard.com/report/github.com/cloudflavor/optimus)  
+[![Go Report Card](https://goreportcard.com/badge/github.com/cloudflavor/optimus)](https://goreportcard.com/report/github.com/cloudflavor/optimus) [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fcloudflavor%2Foptimus.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fcloudflavor%2Foptimus?ref=badge_shield)
+ 
 
 Optimus delivers kubernetes native CI/CD Pipelines by leveraging CRDs.
 
@@ -75,3 +76,7 @@ Additional planned features:
 #### Building
 
 If you are on MacOS, run `hack/run-in-docker.sh` and then `make build`, `make gen`, `make test`.
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fcloudflavor%2Foptimus.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fcloudflavor%2Foptimus?ref=badge_large)
