@@ -23,8 +23,8 @@ import (
 // PipelineList is a list of pipeline CRDs.
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 type PipelineList struct {
-	metav1.TypeMeta   `json:",inline"`
-	metav1.ObjectMeta `json:"metadata,omitempty"`
+	metav1.TypeMeta `json:",inline"`
+	metav1.ListMeta `json:"metadata"`
 
 	Items []Pipeline `json:"items"`
 }
@@ -42,11 +42,12 @@ type Pipeline struct {
 // Job holds the specifics of a pipeline project.
 type Job struct {
 	Name             string            `json:"name"`
+	Namespace        string            `json:"namespace"`
+	Username         string            `json:"username"`
 	ArchiveArtifacts bool              `json:"archive"`
 	Registry         ContainerRegistry `json:"registry"`
-	Notifications    Notifications     `json:"notifications,omitempty"`
+	Notifiers        []Notifier        `json:"notifiers,omitempty"`
 	Repository       string            `json:"repository"`
-	Username         string            `json:"username"`
 	RunInterval      *RunInterval      `json:"runInterval,omitempty"`
 
 	Stages []*Stage `json:"stages"`
@@ -56,16 +57,16 @@ type Job struct {
 type Stage struct {
 	Name     string `json:"name"`
 	Parallel bool   `json:"parallel"`
+	Notify   bool   `json:"notify"`
 
 	Steps []Step `json:"steps"`
 
 	Status Status `json:"status"`
 }
 
-// Step represents a chain of commands that is related to a stage in the
-// pipeline.
+// Step is a single command inside a stage.
 type Step struct {
-	ResourceRequirements *v1.ResourceRequirements `json:"podTemplate,omitempty"`
+	ResourceRequirements *v1.ResourceRequirements `json:"requirements,omitempty"`
 
 	Name         string `json:"name"`
 	RuntimeImage string `json:"runtimeImage"`
@@ -76,9 +77,10 @@ type Step struct {
 
 // ContainerRegistry holds information about a registry where an image will be
 // pushed once an image has been built.
-// NOTE: add username and password/token???
 type ContainerRegistry struct {
-	URI string `json:"uri"`
+	Username string `json"username"`
+	Secret   string `json:"secret"`
+	URI      string `json:"uri"`
 }
 
 // Storage is the interface that is used for abstracting away the object storage
@@ -88,9 +90,9 @@ type Storage struct {
 	URI string `json:"uri"`
 }
 
-// Notifications represents a webhook notification that is triggered by an
+// Notifier represents a webhook notification that is triggered by an
 // action in the pipeline.
-type Notifications struct {
+type Notifier struct {
 	URI   string `json:"uri"`
 	Token string `json:"token,omitempty"`
 }
@@ -100,7 +102,8 @@ type Notifications struct {
 // TODO: add kubernetes cronjob types to this, avoid reinventing the wheel.
 type RunInterval struct{}
 
+// Status represents the status of a stage.
 type Status struct {
-	Time  time.Time
-	State []string
+	Duration time.Duration
+	State    []string
 }
