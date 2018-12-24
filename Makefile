@@ -1,5 +1,4 @@
 image=quay.io/cloudflavor/optimus
-vers=v0.1.0-alpha
 gobuild=go build -o _output/bin/optimus
 commit=$(shell git rev-parse --short HEAD)
 tag=$(shell git describe --abbrev=0 --tags)
@@ -7,7 +6,7 @@ tag=$(shell git describe --abbrev=0 --tags)
 build: verify
 	rm -rf _output || true
 	mkdir -p _output/bin/
-	GOOS=linux GOARCH=amd64 $(gobuild) -v -ldflags "-X main.commit=$(commit) -X main.version=$(vers)" ./cmd/optimus/main.go
+	GOOS=linux GOARCH=amd64 $(gobuild) -v -ldflags "-X main.commit=$(commit) -X main.version=$(tag)" ./cmd/optimus/main.go
 
 generate:
 	echo "test"
@@ -27,8 +26,7 @@ push: tag
 
 tag:
 	docker tag $(image):$(commit) $(image):latest
-	docker tag $(image):$(commit) $(image):$(vers)
-	git tag $(vers)
+	docker tag $(image):$(commit) $(image):$(tag)
 
 # TODO: implement coverage testing.
 test:
