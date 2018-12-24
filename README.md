@@ -36,7 +36,7 @@ spec:
   ArtifactsStorage:
     URI: "https://My-Minio-Example-Server"
     BucketName: "my-bucket"
-  Project:
+  Pipeline:
     # NOTE: This will probably be dropped in favor of a VCS web-hook.  
     # Or it will complement the web-hook scenario, for cases in enterprise
     # environments where we can't have web-hooks for various reasons.
@@ -53,7 +53,7 @@ spec:
       Name: "run tests"
       # This stage is asynchronous.
       Parallel: true
-      Commands:
+      Steps:
         # Run the commands either in sync or async.
         Parallel: false
         # Either exit when a command fails or continue.
